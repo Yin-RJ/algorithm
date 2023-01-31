@@ -180,6 +180,37 @@ $$
 
 **特点：** 每个物品可以无限使用
 
+### 练习题
+
+#### Leetcode 322
+
+![image-20230131195724636](https://yin-typora.oss-cn-beijing.aliyuncs.com/uPic/image-20230131195724636.png)
+
+```java
+    public int coinChange(int[] coins, int amount) {
+        if (coins == null || coins.length == 0) {
+            return 0;
+        }
+
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+
+        for (int coin : coins) {
+            for (int j = coin; j <= amount; ++j) {
+                if (dp[j - coin] == Integer.MAX_VALUE) {
+                    continue;
+                }
+                dp[j] = Math.min(dp[j], dp[j - coin] + 1);
+            }
+        }
+
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
+```
+
+
+
 ## 多重背包问题
 
 **特点：** 第 `i` 个物品只有 `s[i]` 个，即每个物品的数量是有限的，只能使用有限个数该物品
